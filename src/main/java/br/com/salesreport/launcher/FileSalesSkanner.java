@@ -35,28 +35,32 @@ public class FileSalesSkanner {
                 validateInputOutput();
                 List<Path> files = Files.list(this.filesInput.toPath()).filter(path -> path.toFile().isFile() && path.getFileName().toString().endsWith(".txt")).collect(Collectors.toList());
                 for (Path file : files) {
-                    Future<Bundle> future = executorService.submit(new TXTFileReader(file.toFile()));
-                    while (!future.isDone()) {
-                        sleep(1);
+                    try {
+                        Future<Bundle> future = executorService.submit(new TXTFileReader(file.toFile()));
+                        while (!future.isDone()) {
+                            sleep(1);
+                        }
+                        Bundle bundle = future.get();
+                        executorService.submit(new SummarySalesReport(bundle, this.filesOutput, executorService));
+                    } catch (InterruptedException | ExecutionException e) {
+                        if (e instanceof InterruptedException) {
+                            Log.writeLog("""
+                                    Execução interrompida para o arquivo %s, favor verificar mensagem abaixo:
+                                    %s
+                                    """, file.getFileName().toString(), e.getMessage());
+                        } else if (e instanceof ExecutionException) {
+                            Log.writeLog("""
+                                    Ocorreu um erro durante a execução do processo para o arquivo %s. Favor verificar mensagem abaixo:
+                                    %s
+                                    """, file.getFileName().toString(), e.getMessage());
+                        }
                     }
-                    Bundle bundle = future.get();
-                    executorService.submit(new SummarySalesReport(bundle, this.filesOutput, executorService));
                 }
-            } catch (IOException | InterruptedException | ExecutionException e) {
+            } catch (IOException e) {
                 executorService.shutdownNow();
                 if (e instanceof IOException) {
                     Log.writeLog("""
                             Diretório(s) inválido(s). Verifique a mensagem abaixo:
-                            %s
-                            """, e.getMessage());
-                } else if (e instanceof InterruptedException) {
-                    Log.writeLog("""
-                            Execução interrompida, favor verificar mensagem abaixo:
-                            %s
-                            """, e.getMessage());
-                } else if (e instanceof ExecutionException) {
-                    Log.writeLog("""
-                            Ocorreu um erro durante a execução do processo. Favor verificar mensagem abaixo:
                             %s
                             """, e.getMessage());
                 }

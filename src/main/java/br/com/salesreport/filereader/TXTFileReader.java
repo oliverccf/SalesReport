@@ -32,6 +32,9 @@ public class TXTFileReader extends FileReader {
 
     private Bundle read(Stream<String> lines) {
         final var bundle = new Bundle(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        writeLog("""
+                    Lendo arquivo %s
+                    """,this.fileIn.toPath().getFileName().toString());
         final var counter = new Counter();
         lines.forEach(line -> {
             String[] fields = line.replaceAll("ç", "Ç").split("Ç");
@@ -44,8 +47,9 @@ public class TXTFileReader extends FileReader {
                     RecordReader003.read(bundle, counter.getIndex(), fields);
                 } else {
                     writeLog("""
+                                Arquivo %s
                                 Registro inválido ou desconhecido na linha %d
-                            """, counter.getIndex());
+                            """, this.fileIn.toPath().getFileName().toString(), counter.getIndex());
                 }
             }
         });
@@ -57,13 +61,16 @@ public class TXTFileReader extends FileReader {
         try {
             String diretoryName = "file:///./" + fileIn.getParent() + "/backup" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             Path destiny = Path.of(URI.create(diretoryName));
-            Files.createDirectory(destiny);
+            if (!Files.exists(destiny)) {
+                Files.createDirectory(destiny);
+            }
             Files.move(this.fileIn.toPath(), Path.of(URI.create(diretoryName + "/" + this.fileIn.toPath().getFileName().toString())));
         } catch (IOException e) {
             writeLog("""
-                        Incapaz de criar diretório de backup. Ver mensdagem abaixo
-                        %d
-                    """,e.getMessage());
+                        Incapaz de criar diretório de backup ou mover o arquivo %s para a pasta de backup. Ver mensagem abaixo.
+                        Verifique se o arquivo já existe com o mesmo nome ou se o diretório está protegido contra gravação.
+                        %s
+                    """,this.fileIn.toPath().getFileName().toString(), e.getMessage());
         }
     }
 
