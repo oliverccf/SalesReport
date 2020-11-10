@@ -8,7 +8,7 @@ import br.com.salesreport.model.Salesman;
 import java.math.BigDecimal;
 
 import static br.com.salesreport.utils.Log.writeLog;
-import static br.com.salesreport.utils.RecordFieldValidator.compareIfEqual;
+import static br.com.salesreport.utils.StringComparator.compareIfEqual;
 
 public class RecordReader001 {
 

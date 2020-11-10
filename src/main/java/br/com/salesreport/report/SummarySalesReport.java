@@ -32,12 +32,14 @@ public class SummarySalesReport extends Report {
 
         try {
             String report = """
-                    Relatório de vendas
-                    Total Clientes        : %d
-                    Total Vendedores      : %d
-                    ID da venda mais cara : %s
-                    Pior Vendedor         : %s 
-                    """.formatted(totalCustomers(), totalSellers(), theBigestSaleID(), worstSeller());
+                    ########################################
+                    #         Relatório de vendas          # 
+                    ########################################
+                    Total Clientes               : %d
+                    Total Vendedores             : %d
+                    ID da venda mais cara        : %s
+                    Pior Vendedor                : %s 
+                    """.formatted(totalCustomers(), totalSellers(), idOfBigestSale(), worstSeller());
 
             try {
                 String filename = "file:///./" + folderOut.getAbsolutePath() + "/relatorio_de_vendas" + LocalDateTime.now()
@@ -65,7 +67,7 @@ public class SummarySalesReport extends Report {
         return bundle.salesmans().size();
     }
 
-    public String theBigestSaleID() {
+    public String idOfBigestSale() {
         return bundle.sales().stream().max(comparing(Sale::total)).orElse(new Sale("", "", Collections.emptyList(),
                 "")).salesId();
     }

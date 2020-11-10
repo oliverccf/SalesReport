@@ -1,16 +1,12 @@
 package br.com.salesreport.filereader;
 
 import br.com.caelum.stella.validation.CNPJValidator;
-import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
 import br.com.salesreport.model.Bundle;
 import br.com.salesreport.model.Customer;
-import br.com.salesreport.model.Salesman;
-
-import java.math.BigDecimal;
 
 import static br.com.salesreport.utils.Log.writeLog;
-import static br.com.salesreport.utils.RecordFieldValidator.compareIfEqual;
+import static br.com.salesreport.utils.StringComparator.compareIfEqual;
 
 public class RecordReader002 {
 
