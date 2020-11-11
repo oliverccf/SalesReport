@@ -18,7 +18,7 @@ Apache Maven 3.6.3
 
 3 - Verifique o arquivo de saída.
 
-4 - Rodar com diferentes formatações de arquivo
+4 - Rodar com diferentes formatações de arquivo.
     Caso ache algum bug reportar para que seja coberto pelo teste unitário.
 
 5 - Rodar os testes unitários.
