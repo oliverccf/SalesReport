@@ -7,7 +7,6 @@ import br.com.salesreport.utils.Counter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import static br.com.salesreport.utils.Log.writeLog;
 import static br.com.salesreport.utils.StringComparator.compareIfEqual;
@@ -16,7 +15,7 @@ public class RecordReader003 {
 
     public static void read(Bundle bundle, int lineIndex, String[] fields) {
         if (fields.length == 4 && compareIfEqual("003", fields[0])) {
-            List<Item> items = new ArrayList<>();
+            var items = new ArrayList<Item>();
             var itemsSectionList = fields[2].split(",");
             if (itemsSectionList.length > 0) {
                 var counter = new Counter();

@@ -23,7 +23,7 @@ public class RecordReader003Test {
     @Test
     public void readingOnlyOneItemWithWrongCurrencyValueRecordTest() {
 
-        String[] fields = "003ç10ç[1-10-100,2-30-2.50,3-40-3,10]çPedro".replace("ç", "Ç").split("Ç");
+        var fields = "003ç10ç[1-10-100,2-30-2.50,3-40-3,10]çPedro".replace("ç", "Ç").split("Ç");
         var bandle = new Bundle(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         RecordReader003.read(bandle, 1, fields);
 
@@ -34,7 +34,7 @@ public class RecordReader003Test {
     @Test
     public void readingAllItemWithWrongCurrencyValueRecordTest() {
 
-        String[] fields = "003ç10ç[1-10-100,0,2-30-2,50,3-40-3,10]çPedro".replace("ç", "Ç").split("Ç");
+        var fields = "003ç10ç[1-10-100,0,2-30-2,50,3-40-3,10]çPedro".replace("ç", "Ç").split("Ç");
         var bandle = new Bundle(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         RecordReader003.read(bandle, 1, fields);
 
@@ -45,7 +45,7 @@ public class RecordReader003Test {
     @Test
     public void readingOnlyOnItemWithWrongCurrencyValueInvalidConversionRecordTest() {
 
-        String[] fields = "003ç10ç[1-10-100,2-30-2.L0,3-40-3.10]çPedro".replace("ç", "Ç").split("Ç");
+        var fields = "003ç10ç[1-10-100,2-30-2.L0,3-40-3.10]çPedro".replace("ç", "Ç").split("Ç");
         var bandle = new Bundle(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         RecordReader003.read(bandle, 1, fields);
 
@@ -56,7 +56,7 @@ public class RecordReader003Test {
     @Test
     public void readingAllItemWithWrongCurrencyValueInvalidConversionRecordTest() {
 
-        String[] fields = "003ç10ç[1-10-1R0,2-30-A.50,3-40-3.L0]çPedro".replace("ç", "Ç").split("Ç");
+        var fields = "003ç10ç[1-10-1R0,2-30-A.50,3-40-3.L0]çPedro".replace("ç", "Ç").split("Ç");
         var bandle = new Bundle(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         RecordReader003.read(bandle, 1, fields);
 
@@ -67,7 +67,7 @@ public class RecordReader003Test {
     @Test
     public void readingRecordWithoutIdentifyerTest() {
 
-        String[] fields = "ç10ç[1-10-100,2-30-2.50,3-40-3.10]çPedro".replace("ç", "Ç").split("Ç");
+        var fields = "ç10ç[1-10-100,2-30-2.50,3-40-3.10]çPedro".replace("ç", "Ç").split("Ç");
         var bandle = new Bundle(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         RecordReader003.read(bandle, 1, fields);
 
@@ -78,7 +78,7 @@ public class RecordReader003Test {
     @Test
     public void readingRecordWithLessFieldsTest() {
 
-        String[] fields = "10ç[1-10-100,2-30-2.50,3-40-3.10]çPedro".replace("ç", "Ç").split("Ç");
+        var fields = "10ç[1-10-100,2-30-2.50,3-40-3.10]çPedro".replace("ç", "Ç").split("Ç");
         var bandle = new Bundle(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         RecordReader003.read(bandle, 1, fields);
 

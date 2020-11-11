@@ -59,8 +59,8 @@ public class TXTFileReader extends FileReader {
 
     private void createBackup() {
         try {
-            String diretoryName = "file:///./" + fileIn.getParent() + "/backup" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            Path destiny = Path.of(URI.create(diretoryName));
+            var diretoryName = "file:///./" + fileIn.getParent() + "/backup" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            var destiny = Path.of(URI.create(diretoryName));
             if (!Files.exists(destiny)) {
                 Files.createDirectory(destiny);
             }

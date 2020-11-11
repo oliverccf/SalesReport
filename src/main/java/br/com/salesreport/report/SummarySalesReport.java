@@ -31,7 +31,7 @@ public class SummarySalesReport extends Report {
     protected void execute() {
 
         try {
-            String report = """
+            var report = """
                     ########################################
                     #         Relatório de vendas          # 
                     ########################################
@@ -42,7 +42,7 @@ public class SummarySalesReport extends Report {
                     """.formatted(totalCustomers(), totalSellers(), idOfBigestSale(), worstSeller());
 
             try {
-                String filename = "file:///./" + folderOut.getAbsolutePath() + "/relatorio_de_vendas" + LocalDateTime.now()
+                var filename = "file:///./" + folderOut.getAbsolutePath() + "/relatorio_de_vendas" + LocalDateTime.now()
                         .format(DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss")) + ".txt";
 
                 Files.writeString(Path.of(URI.create(filename)), report);

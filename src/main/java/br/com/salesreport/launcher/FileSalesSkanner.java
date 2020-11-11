@@ -1,7 +1,6 @@
 package br.com.salesreport.launcher;
 
 import br.com.salesreport.filereader.TXTFileReader;
-import br.com.salesreport.model.Bundle;
 import br.com.salesreport.report.SummarySalesReport;
 import br.com.salesreport.utils.Log;
 
@@ -9,16 +8,17 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static java.lang.Thread.sleep;
 
 public class FileSalesSkanner {
 
-    private File filesInput;
-    private File filesOutput;
+    private final File filesInput;
+    private final File filesOutput;
 
     public FileSalesSkanner(File filesInput, File filesOutput) {
         this.filesInput = filesInput;
@@ -30,17 +30,17 @@ public class FileSalesSkanner {
         final var scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
 
-            ExecutorService executorService = Executors.newFixedThreadPool(1);
+            var executorService = Executors.newFixedThreadPool(1);
             try {
                 validateInputOutput();
-                List<Path> files = Files.list(this.filesInput.toPath()).filter(path -> path.toFile().isFile() && path.getFileName().toString().endsWith(".txt")).collect(Collectors.toList());
+                var files = Files.list(this.filesInput.toPath()).filter(path -> path.toFile().isFile() && path.getFileName().toString().endsWith(".txt")).collect(Collectors.toList());
                 for (Path file : files) {
                     try {
-                        Future<Bundle> future = executorService.submit(new TXTFileReader(file.toFile()));
+                        var future = executorService.submit(new TXTFileReader(file.toFile()));
                         while (!future.isDone()) {
                             sleep(1);
                         }
-                        Bundle bundle = future.get();
+                        var bundle = future.get();
                         executorService.submit(new SummarySalesReport(bundle, this.filesOutput, executorService));
                     } catch (InterruptedException | ExecutionException e) {
                         if (e instanceof InterruptedException) {
@@ -75,10 +75,10 @@ public class FileSalesSkanner {
 
         if (directoryInputInvalid || directoryOutputInvalid) {
 
-            String InputMessageError = directoryInputInvalid ? "Diretório de entrada inválido" : "";
-            String OutputMessageError = directoryOutputInvalid ? "Diretório de saída inválido" : "";
+            var InputMessageError = directoryInputInvalid ? "Diretório de entrada inválido" : "";
+            var OutputMessageError = directoryOutputInvalid ? "Diretório de saída inválido" : "";
 
-            String message = """
+            var message = """
                        %s
                        %s
                     """.formatted(InputMessageError, OutputMessageError);
