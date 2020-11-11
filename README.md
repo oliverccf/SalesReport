@@ -6,8 +6,6 @@ Compile JDK 15
 Java language Version 15.
 Apache Maven 3.6.3  
 
-O sistema foi criado no formato de biblioteca.
-
 1 - Para executar, configurar o diretório de entrada e saida de arquivos (input output) na classe Launcher e após executar o método main.
 2 - Colocar um arquivo de entrada no formato abaixo. O arquivo deverá ser um arquivo de texto válido e apresentar a extensão .txt. Obs: Cada registro deverá ocupar somente uma linha.
 
