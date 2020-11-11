@@ -1,10 +1,6 @@
 package br.com.salesreport.launcher;
 
-import br.com.salesreport.utils.Log;
-
 import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 public class Launcher {
 

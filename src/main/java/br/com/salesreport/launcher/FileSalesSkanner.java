@@ -7,8 +7,8 @@ import br.com.salesreport.utils.Log;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
-import java.sql.Time;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
