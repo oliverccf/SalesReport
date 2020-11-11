@@ -89,7 +89,7 @@ public class RecordReader003Test {
     @Test
     public void readingEmptyRecordTest() {
 
-        String[] fields = "".replace("ç", "Ç").split("Ç");
+        String[] fields = {""};
         var bandle = new Bundle(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         RecordReader003.read(bandle, 1, fields);
 
